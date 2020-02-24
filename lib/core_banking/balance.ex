@@ -13,20 +13,20 @@ defmodule CoreBanking.Balance do
         %{kind: String.to_atom(item.kind), amount: item.amount}
       end)
 
-    status =
+    state =
       Agent.start_link(fn ->
         {account_id, balance}
       end)
 
-    Logger.info("[Init Balance] -> #{inspect(status)}")
-    status
+    Logger.info("[Init Balance] -> #{inspect(state)}")
+    state
   end
 
-  def deposit(status, amount) do
+  def deposit(state, amount) do
     order = %{kind: :cash_in, amount: amount}
 
-    Agent.update(status, fn status ->
-      {account_id, balance} = status
+    Agent.update(state, fn state ->
+      {account_id, balance} = state
       CoreBanking.AccountBalance.create("cash_in", amount, account_id)
       {account_id, List.insert_at(balance, 0, order)}
     end)
@@ -34,13 +34,13 @@ defmodule CoreBanking.Balance do
     {:ok, order}
   end
 
-  def withdraw(status, amount) do
+  def withdraw(state, amount) do
     cond do
-      get(status) >= amount ->
+      get(state) >= amount ->
         order = %{kind: :cash_out, amount: amount}
 
-        Agent.update(status, fn status ->
-          {account_id, balance} = status
+        Agent.update(state, fn state ->
+          {account_id, balance} = state
           CoreBanking.AccountBalance.create("cash_out", amount, account_id)
           {account_id, List.insert_at(balance, 0, order)}
         end)
@@ -52,11 +52,11 @@ defmodule CoreBanking.Balance do
     end
   end
 
-  def get(status) do
+  def get(state) do
     Agent.get(
-      status,
-      fn status ->
-        {_account_id, balance} = status
+      state,
+      fn state ->
+        {_account_id, balance} = state
 
         Enum.reduce(balance, 0, fn order, acc ->
           case order.kind do
