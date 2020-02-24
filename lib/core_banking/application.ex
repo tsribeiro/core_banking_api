@@ -10,6 +10,7 @@ defmodule CoreBanking.Application do
     children = [
       {DynamicSupervisor, name: CoreBanking.AccountSupervisor, strategy: :one_for_one},
       {DynamicSupervisor, name: CoreBanking.BalanceSupervisor, strategy: :one_for_one},
+      {CoreBanking.AccountRegistry, name: CoreBanking.AccountRegistry},
       CoreBanking.Repo
     ]
 
