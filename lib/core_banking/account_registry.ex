@@ -13,6 +13,7 @@ defmodule CoreBanking.AccountRegistry do
   def init(_opts) do
     accounts = %{}
     refs = %{}
+
     {:ok, {accounts, refs}}
   end
 
@@ -38,6 +39,19 @@ defmodule CoreBanking.AccountRegistry do
       accounts = Map.put(accounts, account_id, account)
       {:reply, :ok, {accounts, refs}}
     end
+  end
+
+  @impl true
+  def handle_info({:DOWN, ref, :process, _pid, _reason}, {accounts, refs}) do
+    Logger.info "handle_info AccountRegistry"
+    {account_id, refs} = Map.pop(refs, ref)
+    accounts = Map.delete(accounts, account_id)
+    {:noreply, {accounts, refs}}
+  end
+
+  @impl true
+  def handle_info(_msg, state) do
+    {:noreply, state}
   end
 
   def create(account_registry, account_id) do

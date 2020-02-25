@@ -1,7 +1,7 @@
 defmodule CoreBanking.Balance do
   require Logger
 
-  use Agent, restart: :temporary
+  use Agent
 
   def start_link(opts) do
     account_id = Keyword.fetch!(opts, :account_id)

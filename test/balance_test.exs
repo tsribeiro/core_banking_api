@@ -3,11 +3,7 @@ defmodule CoreBanking.BalanceTest do
 
   setup do
     account_id = Enum.random(0..1000)
-    {:ok, balance} =
-      DynamicSupervisor.start_child(
-        CoreBanking.BalanceSupervisor,
-        {CoreBanking.Balance, account_id: account_id}
-      )
+    {:ok, balance} = CoreBanking.Balance.start_link(account_id: account_id)
 
     on_exit(fn ->
       CoreBanking.AccountBalance.filter_by_account_id(account_id)
