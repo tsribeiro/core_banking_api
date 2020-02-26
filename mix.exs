@@ -1,4 +1,4 @@
-defmodule CoreBanking.MixProject do
+defmodule CoreBankingUmbrella.MixProject do
   use Mix.Project
 
   def project do
@@ -15,6 +15,8 @@ defmodule CoreBanking.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+
+    ]
   end
 end
