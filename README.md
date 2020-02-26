@@ -7,6 +7,7 @@ CoreBankingApi is a system for controlling bank accounts balance.
 ## Usage
 
 ```shell
+#Initialize Application
 
 $ mix deps.get
 $ iex -S mix
