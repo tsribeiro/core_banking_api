@@ -1,5 +1,6 @@
 defmodule CoreBanking.AccountRegistryTest do
   use ExUnit.Case, async: true
+  require Ecto.Query
 
   setup do
     accounts_id = [Enum.random(0..1000), Enum.random(0..1000)]
@@ -8,7 +9,9 @@ defmodule CoreBanking.AccountRegistryTest do
       Enum.each(
         accounts_id,
         fn account_id ->
-          CoreBanking.AccountBalance.filter_by_account_id(account_id)
+          CoreBanking.AccountBalance
+          |> Ecto.Query.where(account_id: ^account_id)
+          |> CoreBanking.Repo.all()
           |> Enum.each(&CoreBanking.Repo.delete(&1))
         end
       )

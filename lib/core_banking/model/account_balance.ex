@@ -1,7 +1,7 @@
 defmodule CoreBanking.AccountBalance do
   use Ecto.Schema
-  require Ecto.Query
   import Ecto.Changeset
+  import Ecto.Query
 
   @primary_key {:account_balances_id, :id, autogenerate: true}
   schema "account_balances" do
@@ -27,8 +27,11 @@ defmodule CoreBanking.AccountBalance do
   end
 
   def filter_by_account_id(account_id) do
-    CoreBanking.AccountBalance
-    |> Ecto.Query.where(account_id: ^account_id)
-    |> CoreBanking.Repo.all()
+    CoreBanking.Repo.all(
+      from(ab in CoreBanking.AccountBalance,
+        where: ab.account_id == ^account_id,
+        select: %{kind: ab.kind, amount: ab.amount}
+      )
+    )
   end
 end

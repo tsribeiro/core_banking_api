@@ -7,19 +7,13 @@ defmodule CoreBanking.Balance do
     account_id = Keyword.fetch!(opts, :account_id)
     Logger.info("[Balance-AccountId] #{account_id}")
 
-    balance =
-      CoreBanking.AccountBalance.filter_by_account_id(account_id)
-      |> Enum.map(fn item ->
-        %{kind: String.to_atom(item.kind), amount: item.amount}
-      end)
-
-    state =
-      Agent.start_link(fn ->
-        {account_id, balance}
-      end)
-
-    Logger.info("[Init Balance] -> #{inspect(state)}")
-    state
+    Agent.start_link(fn ->
+      {account_id,
+       CoreBanking.AccountBalance.filter_by_account_id(account_id)
+       |> Enum.map(fn item ->
+         %{kind: String.to_existing_atom(item.kind), amount: item.amount}
+       end)}
+    end)
   end
 
   def deposit(state, amount) do

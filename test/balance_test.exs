@@ -1,12 +1,15 @@
 defmodule CoreBanking.BalanceTest do
   use ExUnit.Case, async: true
+  require Ecto.Query
 
   setup do
     account_id = Enum.random(0..1000)
     {:ok, balance} = CoreBanking.Balance.start_link(account_id: account_id)
 
     on_exit(fn ->
-      CoreBanking.AccountBalance.filter_by_account_id(account_id)
+      CoreBanking.AccountBalance
+      |> Ecto.Query.where(account_id: ^account_id)
+      |> CoreBanking.Repo.all()
       |> Enum.each(&CoreBanking.Repo.delete(&1))
     end)
 
