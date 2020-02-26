@@ -26,7 +26,7 @@ defmodule CoreBanking.AccountRegistry do
   @impl true
   def handle_call({:create, account_id}, _from, {accounts, refs}) do
     if Map.has_key?(accounts, account_id) do
-      {:reply, :ok, {accounts, refs}}
+      {:reply, {:ok}, {accounts, refs}}
     else
       {:ok, account} =
         DynamicSupervisor.start_child(
@@ -37,13 +37,13 @@ defmodule CoreBanking.AccountRegistry do
       ref = Process.monitor(account)
       refs = Map.put(refs, ref, account_id)
       accounts = Map.put(accounts, account_id, account)
-      {:reply, :ok, {accounts, refs}}
+      {:reply, {:ok}, {accounts, refs}}
     end
   end
 
   @impl true
   def handle_info({:DOWN, ref, :process, _pid, _reason}, {accounts, refs}) do
-    Logger.info "handle_info AccountRegistry"
+    Logger.info("handle_info AccountRegistry")
     {account_id, refs} = Map.pop(refs, ref)
     accounts = Map.delete(accounts, account_id)
     {:noreply, {accounts, refs}}
