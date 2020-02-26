@@ -2,26 +2,27 @@
 
 CoreBankingApi is a system for controlling bank accounts balance.
 
-
-
 ## Usage
 
 ```shell
 #Get Balance
-curl -X GET 'http://localhost:8080/accounts/5/balance'
 
-#Deposit
-curl -X POST 'http://localhost:8080/accounts/5/balance/deposit' \
+curl -X GET 'http://localhost:8080/accounts/<id>/balance'
+
+#Perform Deposit
+
+curl -X POST 'http://localhost:8080/accounts/<id>/balance/deposit' \
 -H 'Content-Type: application/json' \
 -d '{
-    "amount": 1000
+    "amount": <amunt>
 }'
 
-#Withdraw
-curl -X POST 'http://localhost:8080/accounts/5/balance/withdraw' \
+#Perform Withdraw
+
+curl -X POST 'http://localhost:8080/accounts/<id>/balance/withdraw' \
 -H 'Content-Type: application/json' \
 -d '{
-    "amount": 500
+    "amount": <amunt>
 }'
 ```
 
