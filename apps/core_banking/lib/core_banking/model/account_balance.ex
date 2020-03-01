@@ -17,7 +17,7 @@ defmodule CoreBanking.AccountBalance do
       "amount" => amount,
       "account_id" => account_id
     })
-    |> CoreBanking.Repo.insert()
+    |> CoreBanking.Repo.insert(timeout: 30_000)
   end
 
   defp changeset(struct, params) do
@@ -31,7 +31,8 @@ defmodule CoreBanking.AccountBalance do
       from(ab in CoreBanking.AccountBalance,
         where: ab.account_id == ^account_id,
         select: %{kind: ab.kind, amount: ab.amount}
-      )
+      ),
+      timeout: 30_000
     )
   end
 end

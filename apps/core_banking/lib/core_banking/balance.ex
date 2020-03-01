@@ -1,11 +1,8 @@
 defmodule CoreBanking.Balance do
-  require Logger
-
   use Agent
 
   def start_link(opts) do
     account_id = Keyword.fetch!(opts, :account_id)
-    Logger.info("[Balance-AccountId] #{account_id}")
 
     Agent.start_link(fn ->
       {account_id,

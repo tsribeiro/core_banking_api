@@ -1,11 +1,8 @@
 defmodule CoreBanking.Account do
   use GenServer, restart: :temporary
 
-  require Logger
-
   def start_link(opts) do
     account = GenServer.start_link(__MODULE__, opts)
-    Logger.info("[Init Account] -> #{inspect(account)}")
     account
   end
 
@@ -37,14 +34,14 @@ defmodule CoreBanking.Account do
   end
 
   def deposit(account, amount) do
-    GenServer.call(account, {:deposit, amount})
+    GenServer.call(account, {:deposit, amount}, 30_000)
   end
 
   def withdraw(account, amount) do
-    GenServer.call(account, {:withdraw, amount})
+    GenServer.call(account, {:withdraw, amount}, 30_000)
   end
 
   def balance(account) do
-    GenServer.call(account, {:balance})
+    GenServer.call(account, {:balance}, 30_000)
   end
 end

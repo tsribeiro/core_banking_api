@@ -1,11 +1,8 @@
 defmodule CoreBanking.AccountRegistry do
   use GenServer
 
-  require Logger
-
   def start_link(opts) do
     account_registry = GenServer.start_link(__MODULE__, :ok, opts)
-    Logger.info("[Init AccountRegistry] -> #{inspect(account_registry)}")
     account_registry
   end
 
@@ -43,7 +40,6 @@ defmodule CoreBanking.AccountRegistry do
 
   @impl true
   def handle_info({:DOWN, ref, :process, _pid, _reason}, {accounts, refs}) do
-    Logger.info("handle_info AccountRegistry")
     {account_id, refs} = Map.pop(refs, ref)
     accounts = Map.delete(accounts, account_id)
     {:noreply, {accounts, refs}}

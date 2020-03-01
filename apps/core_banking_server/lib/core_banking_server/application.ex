@@ -8,7 +8,12 @@ defmodule CoreBankingServer.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      Plug.Cowboy.child_spec(scheme: :http, plug: CoreBankingServer.Server, options: [port: 8080])
+      Plug.Cowboy.child_spec(
+        scheme: :http,
+        plug: CoreBankingServer.Server,
+        protocol_options: [idle_timeout: 60_000_000, inactivity_timeout: 60_000_000, linger_timeout: 60_000_000],
+        options: [port: 8080, transport_options: [num_acceptors: 1000]]
+      )
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
