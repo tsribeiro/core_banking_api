@@ -1,0 +1,18 @@
+{
+  "name": "loadtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "loadtest": "*"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "0.19.2",
+    "csv-writer": "1.6.0"
+  }
+}
