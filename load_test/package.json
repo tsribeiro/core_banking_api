@@ -4,15 +4,13 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "jest"
-  },
-  "devDependencies": {
-    "loadtest": "*"
+    "test": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "0.19.2",
-    "csv-writer": "1.6.0"
+    "csv-writer": "1.6.0",
+    "dotenv": "8.2.0"
   }
 }
