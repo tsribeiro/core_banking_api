@@ -1,0 +1,12 @@
+{application,core_banking,
+             [{applications,[kernel,stdlib,elixir,logger,postgrex,ecto_sql]},
+              {description,"core_banking"},
+              {modules,['Elixir.CoreBanking','Elixir.CoreBanking.Account',
+                        'Elixir.CoreBanking.AccountBalance',
+                        'Elixir.CoreBanking.AccountRegistry',
+                        'Elixir.CoreBanking.Application',
+                        'Elixir.CoreBanking.Balance',
+                        'Elixir.CoreBanking.Repo']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.CoreBanking.Application',[]}}]}.

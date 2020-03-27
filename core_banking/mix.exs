@@ -11,7 +11,10 @@ defmodule CoreBankingUmbrella.MixProject do
       releases: [
         prod: [
           include_executables_for: [:unix],
-          applications: [runtime_tools: :permanent]
+          applications: [
+            core_banking: :permanent,
+            core_banking_server: :permanent
+          ]
         ]
       ]
     ]
