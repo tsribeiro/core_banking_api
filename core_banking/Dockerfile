@@ -12,12 +12,15 @@ RUN wget https://repo.hex.pm/installs/1.10.0/hex-0.20.5.ez
 RUN mix archive.install ./hex-0.20.5.ez --force
 RUN mix local.rebar --force
 
-COPY ./core_banking ./
+COPY ./apps ./apps
+COPY ./config ./config
+COPY ./mix.exs  ./
+COPY ./mix.lock ./
+COPY ./start.sh ./
 
 RUN mix deps.get --only prod
 RUN mix release
 
-COPY ./start.sh ./
 RUN chmod +x ./start.sh
 
 CMD ./start.sh
