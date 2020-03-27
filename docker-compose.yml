@@ -9,6 +9,9 @@ services:
     healthcheck:
       test: nc -z localhost 5432
   core:
-    image: core_banking
+    build:
+      context: ./core_banking
+    environment:
+      - MIX_ENV=prod 
     ports:
       - 8080:8080
