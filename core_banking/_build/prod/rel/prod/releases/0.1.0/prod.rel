@@ -1,0 +1,10 @@
+%% coding: utf-8
+{release,{"prod","0.1.0"},
+         {erts,"10.6.4"},
+         [{kernel,"6.5.1",permanent},
+          {stdlib,"3.11.2",permanent},
+          {elixir,"1.10.2",permanent},
+          {sasl,"3.4.1",permanent},
+          {runtime_tools,"1.14",permanent},
+          {iex,"1.10.2",none},
+          {compiler,"7.5.2",permanent}]}.

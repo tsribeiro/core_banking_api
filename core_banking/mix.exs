@@ -5,7 +5,15 @@ defmodule CoreBankingUmbrella.MixProject do
     [
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      version: "0.1.0",
+      default_release: :prod,
+      releases: [
+        prod: [
+          include_executables_for: [:unix],
+          applications: [runtime_tools: :permanent]
+        ]
+      ]
     ]
   end
 
@@ -15,8 +23,6 @@ defmodule CoreBankingUmbrella.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    [
-
-    ]
+    []
   end
 end
