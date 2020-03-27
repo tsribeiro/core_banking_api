@@ -1,13 +1,13 @@
 #/bin/bash
 
-#while ! nc -z db 5432; do
-#        echo "Awaiting DB";
-#	sleep 5;
-#done
+while ! nc -z db 5432; do
+        echo "Awaiting DB";
+	sleep 5;
+done
 
-#mix ecto.create
-#mix ecto.migrate
+mix ecto.create
+mix ecto.migrate
 
-iex -S mix
+_build/prod/rel/prod/bin/prod start
 
 #/bin/bash

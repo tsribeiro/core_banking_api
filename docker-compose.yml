@@ -10,5 +10,5 @@ services:
       test: nc -z localhost 5432
   core:
     image: core_banking
-    #ports:
-    #  - 8080:8080
+    ports:
+      - 8080:8080
