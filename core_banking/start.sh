@@ -5,8 +5,8 @@ while ! nc -z db 5432; do
 	sleep 5;
 done
 
-mix ecto.create
-mix ecto.migrate
+#prod/rel/prod/bin/prod eval mix ecto.create
+#prod/rel/prod/bin/prod eval mix ecto.migrate
 
 _build/prod/rel/prod/bin/prod start
 
