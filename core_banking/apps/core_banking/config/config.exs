@@ -6,7 +6,6 @@ config :core_banking, CoreBanking.Repo,
   database: "core_banking",
   username: "postgres",
   password: "root",
-  hostname: "192.168.59.5",
   pool_size: 50,
   queue_target: 5_000,
   queue_interval: 10_000
