@@ -9,8 +9,7 @@ CoreBankingApi is a system for controlling bank accounts balance.
 ```shell
 #Initialize Application
 
-$ mix deps.get
-$ iex -S mix
+$ docker-compose up --force-recreate --build
 
 #Get Balance
 
