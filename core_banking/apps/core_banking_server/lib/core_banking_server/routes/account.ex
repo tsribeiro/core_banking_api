@@ -21,6 +21,9 @@ defmodule CoreBankingServer.Account do
     {:ok} = CoreBanking.AccountRegistry.create(CoreBanking.AccountRegistry, id)
     {:ok, account} = CoreBanking.AccountRegistry.get(CoreBanking.AccountRegistry, id)
     {:ok, ret} = CoreBanking.Account.deposit(account, conn.body_params["amount"])
+
+     Agent.stop( CoreBanking.Account.get_balance(account), :shutdown)
+
     response(conn, 201, ret)
   end
 
@@ -28,12 +31,19 @@ defmodule CoreBankingServer.Account do
     {:ok} = CoreBanking.AccountRegistry.create(CoreBanking.AccountRegistry, id)
     {:ok, account} = CoreBanking.AccountRegistry.get(CoreBanking.AccountRegistry, id)
     {:ok, ret} = CoreBanking.Account.withdraw(account, conn.body_params["amount"])
+
+    Agent.stop( CoreBanking.Account.get_balance(account), :shutdown)
+
     response(conn, 201, ret)
   end
 
   get "/:id/balance" do
     {:ok} = CoreBanking.AccountRegistry.create(CoreBanking.AccountRegistry, id)
     {:ok, account} = CoreBanking.AccountRegistry.get(CoreBanking.AccountRegistry, id)
-    response(conn, 200, %{balance: CoreBanking.Account.balance(account)})
+    ret = %{balance: CoreBanking.Account.balance(account)}
+
+    Agent.stop( CoreBanking.Account.get_balance(account), :shutdown)
+
+    response(conn, 200, ret)
   end
 end

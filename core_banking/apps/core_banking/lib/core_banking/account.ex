@@ -33,6 +33,12 @@ defmodule CoreBanking.Account do
     {:reply, CoreBanking.Balance.get(balance), state}
   end
 
+  @impl true
+  def handle_call({:get_balance}, _from, state) do
+    {_account_id, balance} = state
+    {:reply, balance, state}
+  end
+
   def deposit(account, amount) do
     GenServer.call(account, {:deposit, amount}, 30_000)
   end
@@ -43,5 +49,9 @@ defmodule CoreBanking.Account do
 
   def balance(account) do
     GenServer.call(account, {:balance}, 30_000)
+  end
+
+  def get_balance(account) do
+    GenServer.call(account, {:get_balance}, 30_000)
   end
 end
