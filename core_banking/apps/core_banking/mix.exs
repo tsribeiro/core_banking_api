@@ -27,7 +27,8 @@ defmodule CoreBanking.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.2"},
-      {:postgrex, "~> 0.15"}
+      {:postgrex, "~> 0.15"},
+      {:myxql, "~> 0.3.0"}
     ]
   end
 end

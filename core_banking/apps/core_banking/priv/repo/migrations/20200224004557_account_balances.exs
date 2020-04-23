@@ -10,10 +10,10 @@ defmodule CoreBanking.Repo.Migrations.AccountBalances do
       add(:create_at, :naive_datetime, null: false, default: fragment("now()"))
     end
 
-    create(
-      constraint("account_balances", "kind_must_be_cash_in_or_cash_out",
-        check: "kind in ('cash_in','cash_out')"
-      )
-    )
+    #create(
+    #  constraint("account_balances", "kind_must_be_cash_in_or_cash_out",
+    #    check: "kind in ('cash_in','cash_out')"
+    #  )
+    #)
   end
 end

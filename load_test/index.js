@@ -61,5 +61,5 @@ function sendTransaction(transactions) {
 
     TRANSACTIONS_PROMISES.push(transaction.kind == 'cash_in' ? deposit(transaction) : withdraw(transaction))
 
-    setTimeout(function () { sendTransaction(transactions); }, 5);
+    setTimeout(function () { sendTransaction(transactions); }, 4);
 }

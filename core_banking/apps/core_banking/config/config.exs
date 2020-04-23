@@ -4,7 +4,7 @@ use Mix.Config
 
 config :core_banking, CoreBanking.Repo,
   database: "core_banking",
-  username: "postgres",
+  username: "root",
   password: "root",
   pool_size: 50,
   queue_target: 5_000,
